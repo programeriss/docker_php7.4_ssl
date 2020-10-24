@@ -10,6 +10,20 @@ RUN apt-get update;
 #apache2 + modules
 RUN apt-get install -y apache2
 
+#apache2 SSL
+RUN apt-get update;
+RUN apt-get install -y ufw
+RUN ufw allow "Apache Full"
+RUN a2enmod ssl
+RUN service apache2 restart
+COPY ./ssl/apache-selfsigned.crt /etc/ssl/certs/apache-selfsigned.crt
+COPY ./ssl/apache-selfsigned.key /etc/ssl/private/apache-selfsigned.key
+COPY ./default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+RUN apt-get update
+RUN a2ensite default-ssl.conf
+RUN apt-get update
+RUN service apache2 restart
+
 #php
 RUN apt-get install software-properties-common -y
 RUN apt-get update
