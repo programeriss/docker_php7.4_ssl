@@ -21,6 +21,7 @@ stop:
 exec:
 	@echo 'Open container'
 	docker exec -it dc.$(dc) /bin/bash
+#	docker exec -it -w /var/www/html dc.$(dc) /bin/bash
 
 #####
 ## Display available make tasks
