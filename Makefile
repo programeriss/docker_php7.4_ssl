@@ -20,8 +20,11 @@ stop:
 ## Open container
 exec:
 	@echo 'Open container'
+ifeq ($(dc),ubuntu)
+	docker exec -it -w /var/www/html/source dc.$(dc) /bin/bash
+else
 	docker exec -it dc.$(dc) /bin/bash
-#	docker exec -it -w /var/www/html dc.$(dc) /bin/bash
+endif
 
 #####
 ## Display available make tasks
